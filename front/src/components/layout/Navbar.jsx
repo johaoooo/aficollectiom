@@ -9,11 +9,11 @@ import DarkModeToggle from '../ui/DarkModeToggle'
 
 const links = [
   { label: 'Accueil',    href: '/',                icon: House },
-  { label: 'Catalogues', href: '/catalogue/afisac', icon: GridFour },
-  { label: 'Formations', href: '/formations',       icon: GraduationCap },
-  { label: 'Galerie',    href: '/galerie',          icon: Images },
-  { label: 'À propos',   href: '/a-propos',         icon: Info },
-  { label: 'Contact',    href: '/contact',          icon: ChatCircleDots },
+  { label: 'Catalogues', href: '/catalogue',       icon: GridFour },
+  { label: 'Formations', href: '/formations',      icon: GraduationCap },
+  { label: 'Galerie',    href: '/galerie',         icon: Images },
+  { label: 'À propos',   href: '/a-propos',        icon: Info },
+  { label: 'Contact',    href: '/contact',         icon: ChatCircleDots },
 ]
 
 export default function Navbar() {

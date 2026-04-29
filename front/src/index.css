@@ -2,34 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Styles personnalisés */
-@layer base {
-  body {
-    background-color: #ffffff;
-  }
-  
-  .dark body {
-    background-color: #ffffff;
-  }
+/* Fond avec image pour toute la page */
+html, body, #root {
+  min-height: 100vh;
 }
 
-/* Dark mode global styles */
-.dark body {
-  background-color: #ffffff;
+#root {
+  background-image: url('/afi.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  position: relative;
 }
 
-.dark .bg-white {
-  background-color: #ffffff;
+/* Overlay clair pour que le texte reste lisible en mode clair */
+#root::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.88);
+  pointer-events: none;
+  z-index: 0;
 }
 
-/* Transitions pour le dark mode */
-* {
-  transition-property: background-color, border-color, color, fill, stroke;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 200ms;
+/* Tout le contenu par-dessus l'overlay */
+#root > * {
+  position: relative;
+  z-index: 1;
 }
 
-/* Animation marquee */
+/* Mode sombre - image différente + overlay plus sombre */
+.dark #root {
+  background-image: url('/afi2.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.dark #root::before {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+/* Animation pour le bandeau défilant */
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
