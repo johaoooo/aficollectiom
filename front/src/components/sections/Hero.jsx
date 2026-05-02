@@ -111,7 +111,7 @@ export default function Hero() {
   const slide = slides[current];
 
   return (
-    <section className="relative min-h-screen w-full flex items-center justify-center py-6 px-3 sm:px-6">
+    <section className="relative min-h-screen w-full flex items-center justify-center py-6 px-3 sm:px-6 bg-[#D1FAE5] dark:bg-[#064E3B]">
       
       <div className="relative w-full max-w-7xl mx-auto rounded-3xl overflow-hidden shadow-2xl">
         

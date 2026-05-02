@@ -16,7 +16,7 @@ export default function App() {
   return (
     <HelmetProvider>
       <BrowserRouter>
-        <div className="bg-white dark:bg-white min-h-screen">
+        <div className="bg-[#D1FAE5] dark:bg-[#064E3B] min-h-screen">
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />

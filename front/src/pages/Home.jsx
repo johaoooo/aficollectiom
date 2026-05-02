@@ -2,35 +2,45 @@ import Hero from '../components/sections/Hero'
 import Categories from '../components/sections/Categories'
 import Collections from '../components/sections/Collections'
 import WhyUs from '../components/sections/WhyUs'
+import VideoTestimonials from '../components/sections/VideoTestimonials'
+import Partners from '../components/sections/Partners'
 import TrainingCTA from '../components/sections/TrainingCTA'
 
 export default function Home() {
   return (
-    <main className="overflow-hidden bg-gray-50 dark:bg-gray-900">
+    <main className="min-h-screen">
       <Hero />
       
-      {/* Categories avec bords arrondis */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="rounded-2xl overflow-hidden bg-white dark:bg-gray-800/50 shadow-lg dark:shadow-none border border-gray-200 dark:border-white/10">
+        <div className="rounded-2xl overflow-hidden bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-lg">
           <Categories />
         </div>
       </div>
 
-      {/* Collections avec bords arrondis */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="rounded-2xl overflow-hidden bg-white dark:bg-gray-800/50 shadow-lg dark:shadow-none border border-gray-200 dark:border-white/10">
+        <div className="rounded-2xl overflow-hidden bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-lg">
           <Collections />
         </div>
       </div>
 
-      {/* WhyUs avec bords arrondis */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="rounded-2xl overflow-hidden bg-white dark:bg-gray-800/50 shadow-lg dark:shadow-none border border-gray-200 dark:border-white/10">
+        <div className="rounded-2xl overflow-hidden bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-lg">
           <WhyUs />
         </div>
       </div>
 
-      {/* TrainingCTA avec bords arrondis */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="rounded-2xl overflow-hidden bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-lg">
+          <VideoTestimonials />
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="rounded-2xl overflow-hidden shadow-lg">
+          <Partners />
+        </div>
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="rounded-2xl overflow-hidden shadow-lg">
           <TrainingCTA />
