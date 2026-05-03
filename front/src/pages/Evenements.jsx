@@ -114,9 +114,9 @@ export default function Evenements() {
     )
 
   return (
-    <main className="min-h-screen pt-8 pb-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl overflow-hidden p-6 md:p-8">
+    <main className="min-h-screen pt-2 pb-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-3xl shadow-xl overflow-hidden p-6 md:p-8">
 
           <MiniHero
             image="/afi2.jpeg"
@@ -193,7 +193,7 @@ export default function Evenements() {
                       variants={fadeUp}
                       initial="hidden"
                       animate="show"
-                      className="rounded-2xl overflow-hidden border border-gray-100 dark:border-white/10 shadow-md hover:shadow-lg transition-all duration-300"
+                      className="rounded-2xl overflow-hidden border border-white/20 dark:border-white/10 shadow-md hover:shadow-xl transition-all duration-300 backdrop-blur-sm bg-white/60 dark:bg-gray-800/40"
                     >
                       <div className="relative h-44 overflow-hidden">
                         <img
@@ -208,7 +208,7 @@ export default function Evenements() {
                         </div>
                       </div>
 
-                      <div className="p-4 bg-white dark:bg-gray-800">
+                      <div className="p-4 bg-white/70 dark:bg-gray-800/50 backdrop-blur-md">
                         <h3 className="font-display font-bold text-gray-900 dark:text-white text-base mb-3">{evt.titre}</h3>
                         <div className="space-y-1.5 mb-3">
                           <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">

@@ -34,9 +34,9 @@ export default function Galerie() {
   })
 
   return (
-    <main className="min-h-screen pt-8 pb-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+    <main className="min-h-screen pt-2 pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl overflow-hidden p-6 md:p-8">
+        <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-3xl shadow-xl overflow-hidden p-6 md:p-8">
           
           <MiniHero
             image="/afi7.jpeg"

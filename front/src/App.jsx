@@ -14,6 +14,7 @@ import Connexion from './pages/Connexion'
 import Inscription from './pages/Inscription'
 import Panier from './pages/Panier'
 import Admin from './pages/Admin'
+import MotDePasseOublie from './pages/MotDePasseOublie'
 
 export default function App() {
   return (
@@ -33,6 +34,7 @@ export default function App() {
             <Route path="/panier" element={<Panier />} />
             <Route path="/connexion" element={<Connexion />} />
             <Route path="/inscription" element={<Inscription />} />
+            <Route path="/mot-de-passe-oublie" element={<MotDePasseOublie />} />
             <Route path="/admin" element={<Admin />} />
           </Routes>
           <Footer />

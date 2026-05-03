@@ -8,7 +8,7 @@ export default function Panier() {
 
   if (!isLoggedIn || cartItems.length === 0) {
     return (
-      <main className="min-h-screen pt-12 pb-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+      <main className="min-h-screen pt-12 pb-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-6">
             <div className="flex justify-center items-center gap-2 mb-2">
@@ -25,7 +25,9 @@ export default function Panier() {
             </div>
             <h2 className="text-2xl font-display font-bold text-gray-900 dark:text-white mb-3">Votre panier est vide</h2>
             <p className="text-gray-500 dark:text-gray-400 mb-8 max-w-md mx-auto">Découvrez nos produits et ajoutez-les à votre panier</p>
-            <Link to="/catalogue" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-[#008753] to-[#006b42] text-white shadow-lg hover:scale-105 transition">Explorer les produits <ArrowRight size={16} /></Link>
+            <Link to="/catalogue" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-[#008753] to-[#006b42] text-white shadow-lg hover:scale-105 transition">
+              Explorer les produits <ArrowRight size={16} />
+            </Link>
           </motion.div>
 
           <div className="mt-10">
@@ -47,11 +49,11 @@ export default function Panier() {
   }
 
   return (
-    <main className="min-h-screen pt-12 pb-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+    <main className="min-h-screen pt-12 pb-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="text-3xl font-display font-bold text-gray-900 dark:text-white mb-6">Mon panier</h1>
         <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl p-6 md:p-8">
-          <p className="text-gray-500 text-center py-10">Contenu du panier à venir...</p>
+          <p className="text-gray-500 dark:text-gray-400 text-center py-10">Contenu du panier à venir...</p>
         </div>
       </div>
     </main>
