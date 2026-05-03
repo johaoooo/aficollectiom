@@ -1,22 +1,46 @@
-const express    = require('express')
-const cors       = require('cors')
-const nodemailer = require('nodemailer')
+const express = require('express')
+const cors = require('cors')
+const helmet = require('helmet')
+const rateLimit = require('express-rate-limit')
 require('dotenv').config()
 
+const authRoutes = require('./routes/auth')
+const productRoutes = require('./routes/products')
+const trainingRoutes = require('./routes/trainings')
+const eventRoutes = require('./routes/events')
+const contactRoutes = require('./routes/contact')
+const adminRoutes = require('./routes/admin')
+
 const app = express()
+
+// Sécurité
+app.use(helmet())
+
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limite de 100 requêtes par fenêtre
+})
+app.use('/api/', limiter)
+
 app.use(cors({ origin: process.env.FRONTEND_URL || '*' }))
 app.use(express.json())
 
-app.get('/api/health', (req, res) => res.json({ status: 'ok', brand: 'AFI Collection' }))
+// Routes
+app.use('/api/auth', authRoutes)
+app.use('/api/products', productRoutes)
+app.use('/api/trainings', trainingRoutes)
+app.use('/api/events', eventRoutes)
+app.use('/api/contact', contactRoutes)
+app.use('/api/admin', adminRoutes)
 
-app.post('/api/contact', async (req, res) => {
-  const { name, email, phone, message, subBrand } = req.body
-  if (!name || !email || !message) {
-    return res.status(400).json({ error: 'Champs obligatoires manquants' })
-  }
-  console.log('Nouveau message AFI Collection:', { name, email, phone, subBrand, message })
-  res.json({ success: true, message: 'Message reçu. Nous vous répondrons dans les 24h.' })
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', brand: 'AFI Collection', version: '2.0' })
 })
 
 const PORT = process.env.PORT || 3001
-app.listen(PORT, () => console.log(`AFI Collection API démarrée — port ${PORT}`))
+app.listen(PORT, () => {
+  console.log(`✅ AFI Collection API démarrée — port ${PORT}`)
+  console.log(`📍 http://localhost:${PORT}`)
+  console.log(`🔐 Admin: admin@aficollection.com / admin123`)
+})
