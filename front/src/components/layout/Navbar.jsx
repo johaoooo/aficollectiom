@@ -58,8 +58,11 @@ export default function Navbar() {
           <div
             className={`
               rounded-b-2xl overflow-hidden w-fit transition-all duration-500
-              bg-white dark:bg-[#064E3B]
-              ${scrolled ? 'shadow-lg' : 'shadow-md'}
+              backdrop-blur-xl border border-white/20 dark:border-white/10
+              ${scrolled
+                ? 'bg-white/70 dark:bg-[#022c1e]/80 shadow-xl shadow-black/10 dark:shadow-black/30'
+                : 'bg-white/50 dark:bg-[#022c1e]/60 shadow-lg shadow-black/5'
+              }
             `}
           >
             <div className="w-fit mx-auto px-4 sm:px-6 flex items-center justify-between h-[62px]">
@@ -70,7 +73,7 @@ export default function Navbar() {
                 </Link>
               </motion.div>
 
-              <nav className="hidden lg:flex items-center gap-4">
+              <nav className="hidden lg:flex items-center gap-1">
                 {links.map(({ label, href, icon: Icon }) => {
                   const active = isActive(href)
                   const isHovered = hoveredLink === href
@@ -83,21 +86,32 @@ export default function Navbar() {
                       onMouseLeave={() => setHoveredLink(null)}
                       className={`relative flex items-center gap-[7px] px-3 py-2 rounded-xl text-[13px] font-[500] transition-all duration-200 outline-none
                         ${active
-                          ? 'text-[#008753] dark:text-white'
-                          : 'text-gray-900 dark:text-white/90'
+                          ? 'text-[#008753] dark:text-[#4ade80]'
+                          : 'text-gray-800 dark:text-white hover:text-gray-900 dark:hover:text-white'
                         }`}
                     >
                       {active && (
                         <motion.span
                           layoutId="activeBg"
-                          className="absolute inset-0 rounded-xl bg-[#008753]/10 dark:bg-white/20"
+                          className="absolute inset-0 rounded-xl bg-[#008753]/10 dark:bg-[#008753]/25 border border-[#008753]/20 dark:border-[#008753]/30"
                           transition={{ type: 'spring', duration: 0.4 }}
+                        />
+                      )}
+                      {isHovered && !active && (
+                        <motion.span
+                          layoutId="hoverBg"
+                          className="absolute inset-0 rounded-xl bg-black/5 dark:bg-white/8"
+                          transition={{ type: 'spring', duration: 0.3 }}
                         />
                       )}
                       <Icon
                         weight={active ? 'fill' : 'regular'}
-                        size={18}
-                        className={`relative z-10 shrink-0 ${active ? 'text-[#008753] dark:text-white' : 'text-gray-700 dark:text-white/80'}`}
+                        size={17}
+                        className={`relative z-10 shrink-0 transition-colors duration-200 ${
+                          active
+                            ? 'text-[#008753] dark:text-[#4ade80]'
+                            : 'text-gray-700 dark:text-white'
+                        }`}
                       />
                       <AnimatePresence mode="wait">
                         {showText && (
@@ -116,10 +130,10 @@ export default function Navbar() {
                 })}
               </nav>
 
-              <div className="hidden lg:flex items-center gap-2">
+              <div className="hidden lg:flex items-center gap-2 ml-4">
                 <DarkModeToggle />
 
-                <Link to="/panier" className="relative flex items-center justify-center w-9 h-9 rounded-xl text-gray-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition">
+                <Link to="/panier" className="relative flex items-center justify-center w-9 h-9 rounded-xl text-gray-700 dark:text-white hover:text-gray-900 dark:hover:text-white hover:bg-black/8 dark:hover:bg-white/10 transition-all duration-200">
                   <ShoppingCart size={18} weight="regular" />
                   {cartCount > 0 && (
                     <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#E8112D] text-white text-[9px] font-bold flex items-center justify-center">
@@ -128,18 +142,29 @@ export default function Navbar() {
                   )}
                 </Link>
 
-                <div className="w-px h-4 bg-gray-400 dark:bg-white/30" />
-                <Link to="/connexion" className="flex items-center gap-2 px-3 py-2 rounded-xl text-[13px] font-[500] text-gray-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition">
+                <div className="w-px h-4 bg-gray-300 dark:bg-white/20" />
+
+                <Link
+                  to="/connexion"
+                  className="flex items-center gap-2 px-3 py-2 rounded-xl text-[13px] font-[500] text-gray-800 dark:text-white hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-200"
+                >
                   Connexion
                 </Link>
-                <Link to="/inscription" className="px-4 py-2 rounded-xl text-[13px] font-semibold text-white bg-gradient-to-r from-[#E8112D] to-[#C0001F] hover:scale-105 transition">
+                <Link
+                  to="/inscription"
+                  className="px-4 py-2 rounded-xl text-[13px] font-semibold text-white
+                    bg-gradient-to-r from-[#008753] to-[#006b42]
+                    hover:from-[#009960] hover:to-[#007a4d]
+                    shadow-md shadow-[#008753]/25 hover:shadow-[#008753]/40
+                    hover:scale-105 transition-all duration-200"
+                >
                   S'inscrire
                 </Link>
               </div>
 
               <div className="flex items-center gap-2 lg:hidden">
                 <DarkModeToggle />
-                <Link to="/panier" className="relative w-9 h-9 rounded-xl flex items-center justify-center text-gray-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition">
+                <Link to="/panier" className="relative w-9 h-9 rounded-xl flex items-center justify-center text-gray-700 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition">
                   <ShoppingCart size={18} />
                   {cartCount > 0 && (
                     <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#E8112D] text-white text-[9px] font-bold flex items-center justify-center">
@@ -147,7 +172,7 @@ export default function Navbar() {
                     </span>
                   )}
                 </Link>
-                <button onClick={() => setOpen(!open)} className="w-9 h-9 rounded-xl flex items-center justify-center text-gray-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition">
+                <button onClick={() => setOpen(!open)} className="w-9 h-9 rounded-xl flex items-center justify-center text-gray-700 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition">
                   {open ? <X size={18} /> : <List size={18} />}
                 </button>
               </div>
@@ -162,22 +187,41 @@ export default function Navbar() {
                 exit={{ opacity: 0, height: 0 }}
                 className="overflow-hidden mt-2"
               >
-                <div className="rounded-2xl bg-white dark:bg-[#064E3B] px-3 py-3">
-                  {links.map(({ label, href, icon: Icon }) => (
-                    <Link
-                      key={href}
-                      to={href}
-                      onClick={() => setOpen(false)}
-                      className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition"
-                    >
-                      <Icon size={18} /> {label}
-                    </Link>
-                  ))}
-                  <div className="h-px bg-gray-400/30 dark:bg-white/20 my-2" />
-                  <Link to="/connexion" className="flex items-center justify-center gap-2 py-3 border border-gray-400/30 dark:border-white/20 rounded-xl text-sm text-gray-900 dark:text-white">
+                <div className="rounded-2xl backdrop-blur-xl bg-white/90 dark:bg-[#022c1e]/90 border border-white/30 dark:border-white/10 shadow-xl px-3 py-3">
+                  {links.map(({ label, href, icon: Icon }) => {
+                    const active = isActive(href)
+                    return (
+                      <Link
+                        key={href}
+                        to={href}
+                        onClick={() => setOpen(false)}
+                        className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200
+                          ${active
+                            ? 'text-[#008753] dark:text-[#4ade80] bg-[#008753]/10 dark:bg-[#008753]/20'
+                            : 'text-gray-800 dark:text-white hover:bg-black/5 dark:hover:bg-white/10'
+                          }`}
+                      >
+                        <Icon
+                          size={18}
+                          weight={active ? 'fill' : 'regular'}
+                          className={active ? 'text-[#008753] dark:text-[#4ade80]' : 'text-gray-700 dark:text-white'}
+                        />
+                        {label}
+                      </Link>
+                    )
+                  })}
+                  <div className="h-px bg-gray-200 dark:bg-white/10 my-2" />
+                  <Link
+                    to="/connexion"
+                    className="flex items-center justify-center gap-2 py-3 border border-gray-200 dark:border-white/15 rounded-xl text-sm text-gray-800 dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition"
+                  >
                     Connexion
                   </Link>
-                  <Link to="/inscription" className="flex items-center justify-center gap-2 py-3 mt-2 bg-[#008753] rounded-xl text-sm font-semibold text-white">
+                  <Link
+                    to="/inscription"
+                    className="flex items-center justify-center gap-2 py-3 mt-2 rounded-xl text-sm font-semibold text-white
+                      bg-gradient-to-r from-[#008753] to-[#006b42] shadow-md shadow-[#008753]/25"
+                  >
                     S'inscrire
                   </Link>
                 </div>
