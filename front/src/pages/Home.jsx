@@ -11,37 +11,37 @@ export default function Home() {
     <main className="min-h-screen">
       <Hero />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="rounded-2xl overflow-hidden bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-lg">
           <Categories />
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="rounded-2xl overflow-hidden bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-lg">
           <Collections />
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="rounded-2xl overflow-hidden bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-lg">
           <WhyUs />
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="rounded-2xl overflow-hidden bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-lg">
           <VideoTestimonials />
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="rounded-2xl overflow-hidden shadow-lg">
           <Partners />
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="rounded-2xl overflow-hidden shadow-lg">
           <TrainingCTA />
         </div>

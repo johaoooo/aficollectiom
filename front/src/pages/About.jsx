@@ -1,7 +1,11 @@
 import { motion } from 'framer-motion'
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { Info, Hand, Leaf, Users, Sparkle, Heart, Trophy, Calendar, MapPin, Star, ArrowRight, CheckCircle } from '@phosphor-icons/react'
+import {
+  Info, Hand, Leaf, Users, Sparkle, Heart, Trophy,
+  ArrowRight, CheckCircle, Images
+} from '@phosphor-icons/react'
+import MiniHero from '../components/ui/MiniHero'
 
 const valeurs = [
   { title: 'Authenticité', description: 'Chaque création est unique, tissée ou teinte à la main avec des techniques traditionnelles.', icon: Hand, color: '#008753' },
@@ -23,7 +27,9 @@ function AnimatedCounter({ target }) {
   const ref = useRef(null)
 
   useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { setIsVisible(true); observer.disconnect() } }, { threshold: 0.1 })
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { setIsVisible(true); observer.disconnect() }
+    }, { threshold: 0.1 })
     if (ref.current) observer.observe(ref.current)
     return () => observer.disconnect()
   }, [])
@@ -31,7 +37,11 @@ function AnimatedCounter({ target }) {
   useEffect(() => {
     if (!isVisible) return
     let start = 0, duration = 2000, step = Math.ceil(target / 40)
-    const timer = setInterval(() => { start += step; if (start >= target) { setCount(target); clearInterval(timer) } else { setCount(start) } }, duration / 40)
+    const timer = setInterval(() => {
+      start += step
+      if (start >= target) { setCount(target); clearInterval(timer) }
+      else { setCount(start) }
+    }, duration / 40)
     return () => clearInterval(timer)
   }, [isVisible, target])
 
@@ -40,40 +50,27 @@ function AnimatedCounter({ target }) {
 
 export default function About() {
   return (
-    <main className="min-h-screen pt-24 pb-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+    <main className="min-h-screen pt-8 pb-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl overflow-hidden p-6 md:p-8">
           
-          {/* En-tête */}
-          <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#008753]/10 dark:bg-[#008753]/20 mb-4">
-              <Info size={16} weight="duotone" className="text-[#008753]" />
-              <span className="text-xs font-semibold tracking-wider text-[#008753] uppercase">Notre histoire</span>
-            </div>
-            <h1 className="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-white">
-              À propos <span className="text-[#008753]">d'AFI Collection</span>
-            </h1>
-            <div className="flex justify-center items-center gap-2 mt-2">
-              <div className="w-12 h-px bg-gradient-to-r from-transparent to-[#008753]"></div>
-              <span className="text-xs font-semibold tracking-wider text-gray-500 uppercase">L'art béninois, tissé à la main</span>
-              <div className="w-12 h-px bg-gradient-to-l from-transparent to-[#E8112D]"></div>
-            </div>
-          </div>
+          <MiniHero
+            image="/mmeafi.jpeg"
+            icon={Info}
+            badge="Notre histoire"
+            title="À propos"
+            highlight="d'AFI Collection"
+            subtitle="L'art béninois, tissé à la main — une maison fondée sur la passion, portée par la tradition"
+            searchPlaceholder=""
+            onSearch={() => {}}
+          />
 
-          {/* Photo + Texte - Disposition côte à côte */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-12">
-            {/* Photo */}
             <div className="flex justify-center">
               <div className="w-full max-w-md rounded-2xl overflow-hidden shadow-lg">
-                <img 
-                  src="/mmeafi.jpeg" 
-                  alt="Mme TOSSA Afiavi - Fondatrice d'AFI Collection" 
-                  className="w-full h-auto object-cover"
-                />
+                <img src="/mmeafi.jpeg" alt="Mme TOSSA Afiavi - Fondatrice d'AFI Collection" className="w-full h-auto object-cover" />
               </div>
             </div>
-            
-            {/* Texte */}
             <div>
               <h2 className="text-2xl md:text-3xl font-display font-bold text-gray-900 dark:text-white mb-4">
                 Née d'une passion, <br />
@@ -92,23 +89,60 @@ export default function About() {
             </div>
           </div>
 
-          {/* Valeurs */}
           <div className="mb-12">
-            <div className="text-center mb-6"><Heart size={24} weight="fill" className="text-[#E8112D] mx-auto mb-2" /><h2 className="text-2xl font-display font-bold text-gray-900 dark:text-white">Nos valeurs</h2></div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">{valeurs.map((v) => (<div key={v.title} className="p-4 rounded-xl bg-gray-50 dark:bg-gray-700 text-center group hover:scale-105 transition"><div className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3" style={{ backgroundColor: `${v.color}15` }}><v.icon size={22} weight="duotone" style={{ color: v.color }} /></div><h3 className="font-bold text-gray-900 dark:text-white text-sm mb-1">{v.title}</h3><p className="text-xs text-gray-600 dark:text-gray-400">{v.description}</p></div>))}</div>
+            <div className="text-center mb-6">
+              <Heart size={24} weight="fill" className="text-[#E8112D] mx-auto mb-2" />
+              <h2 className="text-2xl font-display font-bold text-gray-900 dark:text-white">Nos valeurs</h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {valeurs.map((v) => (
+                <div key={v.title} className="p-4 rounded-xl bg-gray-50 dark:bg-gray-700 text-center group hover:scale-105 transition">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3" style={{ backgroundColor: `${v.color}15` }}>
+                    <v.icon size={22} weight="duotone" style={{ color: v.color }} />
+                  </div>
+                  <h3 className="font-bold text-gray-900 dark:text-white text-sm mb-1">{v.title}</h3>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">{v.description}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Distinctions */}
           <div className="mb-12">
-            <div className="text-center mb-6"><Trophy size={24} weight="fill" className="text-[#FCD116] mx-auto mb-2" /><h2 className="text-2xl font-display font-bold text-gray-900 dark:text-white">Nos distinctions</h2></div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">{distinctions.map((item, i) => (<div key={i} className="flex items-center gap-4 p-4 rounded-xl bg-gray-50 dark:bg-gray-700 hover:shadow-md transition"><div className="w-10 h-10 rounded-lg flex items-center justify-center bg-[#FCD116]/10"><Trophy size={18} weight="fill" className="text-[#FCD116]" /></div><div><h3 className="font-semibold text-gray-900 dark:text-white">{item.title}</h3><p className="text-xs text-gray-500">{item.year} - {item.location}</p><p className="text-[10px] text-gray-400 mt-0.5">{item.desc}</p></div><CheckCircle size={18} weight="fill" className="ml-auto text-[#008753]" /></div>))}</div>
+            <div className="text-center mb-6">
+              <Trophy size={24} weight="fill" className="text-[#FCD116] mx-auto mb-2" />
+              <h2 className="text-2xl font-display font-bold text-gray-900 dark:text-white">Nos distinctions</h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {distinctions.map((item, i) => (
+                <div key={i} className="flex items-center gap-4 p-4 rounded-xl bg-gray-50 dark:bg-gray-700 hover:shadow-md transition">
+                  <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-[#FCD116]/10">
+                    <Trophy size={18} weight="fill" className="text-[#FCD116]" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 dark:text-white">{item.title}</h3>
+                    <p className="text-xs text-gray-500">{item.year} - {item.location}</p>
+                    <p className="text-[10px] text-gray-400 mt-0.5">{item.desc}</p>
+                  </div>
+                  <CheckCircle size={18} weight="fill" className="ml-auto text-[#008753]" />
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Chiffres clés */}
-          <div className="rounded-xl p-6 bg-gradient-to-r from-[#008753]/10 to-[#FCD116]/10"><div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center"><div><div className="text-3xl font-black text-[#008753]"><AnimatedCounter target={2015} /></div><div className="text-sm font-semibold text-gray-900 dark:text-white">Fondation</div><div className="text-xs text-gray-500">Abomey-Calavi</div></div><div><div className="text-3xl font-black text-[#FCD116]"><AnimatedCounter target={35} />+</div><div className="text-sm font-semibold text-gray-900 dark:text-white">Années</div><div className="text-xs text-gray-500">d'expertise</div></div><div><div className="text-3xl font-black text-[#E8112D]"><AnimatedCounter target={5000} />+</div><div className="text-sm font-semibold text-gray-900 dark:text-white">Personnes</div><div className="text-xs text-gray-500">formées</div></div><div><div className="text-3xl font-black text-[#008753]"><AnimatedCounter target={10} />+</div><div className="text-sm font-semibold text-gray-900 dark:text-white">Pays</div><div className="text-xs text-gray-500">couverts</div></div></div></div>
+          <div className="rounded-xl p-6 bg-gradient-to-r from-[#008753]/10 to-[#FCD116]/10">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+              <div><div className="text-3xl font-black text-[#008753]"><AnimatedCounter target={2015} /></div><div className="text-sm font-semibold text-gray-900 dark:text-white">Fondation</div><div className="text-xs text-gray-500">Abomey-Calavi</div></div>
+              <div><div className="text-3xl font-black text-[#FCD116]"><AnimatedCounter target={35} />+</div><div className="text-sm font-semibold text-gray-900 dark:text-white">Années</div><div className="text-xs text-gray-500">d'expertise</div></div>
+              <div><div className="text-3xl font-black text-[#E8112D]"><AnimatedCounter target={5000} />+</div><div className="text-sm font-semibold text-gray-900 dark:text-white">Personnes</div><div className="text-xs text-gray-500">formées</div></div>
+              <div><div className="text-3xl font-black text-[#008753]"><AnimatedCounter target={10} />+</div><div className="text-sm font-semibold text-gray-900 dark:text-white">Pays</div><div className="text-xs text-gray-500">couverts</div></div>
+            </div>
+          </div>
 
-          {/* CTA */}
-          <div className="text-center mt-8"><Link to="/catalogue" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-[#008753] to-[#006b42] text-white shadow-lg hover:scale-105 transition">Découvrir nos collections <ArrowRight size={14} /></Link></div>
+          <div className="text-center mt-8">
+            <Link to="/catalogue" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-[#008753] to-[#006b42] text-white shadow-lg hover:scale-105 transition">
+              Découvrir nos collections <ArrowRight size={14} />
+            </Link>
+          </div>
         </div>
       </div>
     </main>

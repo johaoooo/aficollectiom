@@ -85,22 +85,30 @@ export default function Contact() {
     if (error) setError('')
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (!formData.nom || !formData.email || !formData.message) {
       setError('Veuillez remplir tous les champs')
       return
     }
     setSubmitting(true)
-    setTimeout(() => {
-      setSubmitting(false)
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: formData.nom, email: formData.email, message: formData.message })
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Erreur lors de l\'envoi')
       setSubmitted(true)
       setError('')
-      setTimeout(() => {
-        setSubmitted(false)
-        setFormData({ nom: '', email: '', message: '' })
-      }, 2000)
-    }, 800)
+      setFormData({ nom: '', email: '', message: '' })
+      setTimeout(() => setSubmitted(false), 3000)
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const coords = [

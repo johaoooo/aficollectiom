@@ -27,22 +27,44 @@ export default function Inscription() {
   const [submitting, setSubmitting] = useState(false)
 
   const handleChange = (e) => { setFormData({ ...formData, [e.target.name]: e.target.value }); if (error) setError('') }
-  const handleSubmit = (e) => { e.preventDefault(); if (!formData.nom || !formData.email || !formData.password || !formData.confirmPassword) { setError('Veuillez remplir tous les champs'); return } if (formData.password !== formData.confirmPassword) { setError('Les mots de passe ne correspondent pas'); return } setSubmitting(true); setTimeout(() => { setSubmitting(false); setSubmitted(true); setTimeout(() => setSubmitted(false), 2000) }, 800) }
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    if (!formData.nom || !formData.email || !formData.password || !formData.confirmPassword) { setError('Veuillez remplir tous les champs'); return }
+    if (formData.password !== formData.confirmPassword) { setError('Les mots de passe ne correspondent pas'); return }
+    setSubmitting(true)
+    try {
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: formData.nom, email: formData.email, password: formData.password })
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Erreur lors de l\'inscription')
+      localStorage.setItem('token', data.token)
+      localStorage.setItem('user', JSON.stringify(data.user))
+      setSubmitted(true)
+      setTimeout(() => { window.location.href = '/' }, 1500)
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setSubmitting(false)
+    }
+  }
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
-      <div className="w-full max-w-sm mx-auto px-4 py-8">
+    <main className="min-h-screen flex items-center justify-center">
+      <div className="w-full max-w-2xl mx-auto px-4 py-8">
         <motion.div variants={fadeUp} initial="hidden" animate="show" className="text-center mb-6">
-          <motion.div custom={0} variants={fadeUp} className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full mb-3 bg-[#008753]/10 dark:bg-[#008753]/15"><UserPlus size={10} weight="duotone" className="text-[#008753]" /><span className="text-[9px] font-semibold tracking-widest uppercase text-[#008753]">Inscription</span></motion.div>
+          <motion.div custom={0} variants={fadeUp} className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full mb-3 bg-[#008753]/10 dark:bg-[#008753]/15"><UserPlus size={10} weight="duotone" className="text-[#008753]" /><span className="text-xs font-semibold tracking-widest uppercase text-[#008753]">Inscription</span></motion.div>
           <motion.h2 custom={1} variants={fadeUp} className="text-gray-900 dark:text-white mb-1" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: 'clamp(1.8rem, 5vw, 2.5rem)', fontWeight: 600 }}>Rejoignez-nous</motion.h2>
-          <motion.p custom={2} variants={fadeUp} className="text-[10px] text-gray-500 dark:text-gray-400">Créez votre compte en quelques secondes</motion.p>
+          <motion.p custom={2} variants={fadeUp} className="text-sm text-gray-500 dark:text-gray-400">Créez votre compte en quelques secondes</motion.p>
         </motion.div>
 
         <motion.div custom={3} variants={fadeUp} className="relative rounded-2xl overflow-hidden mb-4 bg-white dark:bg-gray-800/50 shadow-lg dark:shadow-none border border-gray-200 dark:border-white/10">
           <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#008753] via-[#FCD116] to-[#E8112D]" />
           <div className="p-4">
-            <AnimatePresence>{submitted && (<motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-3 px-3 py-1.5 rounded-lg flex items-center gap-2 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800"><CheckCircle size={12} weight="fill" className="text-[#008753]" /><p className="text-[10px] font-medium text-green-700 dark:text-green-400">Inscription réussie !</p></motion.div>)}</AnimatePresence>
-            <AnimatePresence>{error && (<motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-3 px-3 py-1.5 rounded-lg flex items-center gap-2 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800"><WarningCircle size={12} weight="fill" className="text-[#E8112D]" /><p className="text-[10px] text-red-700 dark:text-red-400">{error}</p></motion.div>)}</AnimatePresence>
+            <AnimatePresence>{submitted && (<motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-3 px-3 py-1.5 rounded-lg flex items-center gap-2 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800"><CheckCircle size={12} weight="fill" className="text-[#008753]" /><p className="text-sm font-medium text-green-700 dark:text-green-400">Inscription réussie !</p></motion.div>)}</AnimatePresence>
+            <AnimatePresence>{error && (<motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mb-3 px-3 py-1.5 rounded-lg flex items-center gap-2 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800"><WarningCircle size={12} weight="fill" className="text-[#E8112D]" /><p className="text-sm text-red-700 dark:text-red-400">{error}</p></motion.div>)}</AnimatePresence>
             <form onSubmit={handleSubmit} className="space-y-2.5">
               <Field type="text" name="nom" value={formData.nom} onChange={handleChange} placeholder="Nom complet *" />
               <Field type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email *" />
@@ -53,9 +75,9 @@ export default function Inscription() {
           </div>
         </motion.div>
 
-        <div className="flex items-center gap-3 my-4"><div className="flex-1 h-px bg-gray-200 dark:bg-white/10"></div><span className="text-[9px] text-gray-400">ou</span><div className="flex-1 h-px bg-gray-200 dark:bg-white/10"></div></div>
+        <div className="flex items-center gap-3 my-4"><div className="flex-1 h-px bg-gray-200 dark:bg-white/10"></div><span className="text-xs text-gray-400">ou</span><div className="flex-1 h-px bg-gray-200 dark:bg-white/10"></div></div>
         <div className="space-y-2"><button className="w-full flex items-center justify-center gap-2 py-2 rounded-xl border border-gray-200 dark:border-white/10 text-xs text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 transition"><GoogleLogo size={14} /> Google</button><button className="w-full flex items-center justify-center gap-2 py-2 rounded-xl border border-gray-200 dark:border-white/10 text-xs text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5 transition"><FacebookLogo size={14} weight="fill" /> Facebook</button></div>
-        <p className="text-center text-[10px] text-gray-500 dark:text-gray-400 mt-5">Déjà inscrit ? <Link to="/connexion" className="text-[#008753] font-semibold hover:underline">Se connecter</Link></p>
+        <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-5">Déjà inscrit ? <Link to="/connexion" className="text-[#008753] font-semibold hover:underline">Se connecter</Link></p>
       </div>
     </main>
   )
